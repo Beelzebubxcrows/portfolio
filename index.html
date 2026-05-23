@@ -1,534 +1,361 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Amir Iqbal</title>
-    <meta name="description" content="Portfolio Template for Developer" />
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir Iqbal — Software Engineer & Tech Lead</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Space+Mono:wght@400;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c10;
+    --bg-soft:#0f1218;
+    --panel:#12161e;
+    --line:rgba(255,255,255,0.07);
+    --line-strong:rgba(255,255,255,0.12);
+    --text:#e7e9ee;
+    --text-dim:#9aa1ad;
+    --text-faint:#646b78;
+    --accent:#7dd3c0;
+    --accent-warm:#d4a574;
+    --glow:rgba(125,211,192,0.14);
+    --display:'Fraunces',Georgia,serif;
+    --body:'Manrope',system-ui,sans-serif;
+    --mono:'Space Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* grain overlay */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection{background:var(--accent);color:var(--bg)}
 
-    <link rel="stylesheet" href="css/style.css" />
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700;900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <header class="header">
-      <div class="header__content">
-        <div class="header__logo-container">
-          <div class="header__logo-img-cont">
-            <img
-              src="./assets/jpeg/amir.jpg"
-              alt="Ram Maheshwari Logo Image"
-              class="header__logo-img"
-            />
-          </div>
-          <span class="header__logo-sub">Amir Iqbal</span>
-        </div>
-        <div class="header__main">
-          <ul class="header__links">
-            <li class="header__link-wrapper">
-              <a href="./index.html" class="header__link"> Home </a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#workExperience" class="header__link">Work Experience </a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#projects" class="header__link">
-                Projects
-              </a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#accomplishments" class="header__link"> Accomplishments </a>
-            </li>
-            <li class="header__link-wrapper">
-              <a href="./index.html#skills" class="header__link"> Skills </a>
-            </li>
-          </ul>
-          <div class="header__main-ham-menu-cont">
-            <img
-              src="./assets/svg/ham-menu.svg"
-              alt="hamburger menu"
-              class="header__main-ham-menu"
-            />
-            <img
-              src="./assets/svg/ham-menu-close.svg"
-              alt="hamburger menu close"
-              class="header__main-ham-menu-close d-none"
-            />
-          </div>
-        </div>
+  /* ambient glow */
+  .ambient{position:fixed;top:-20%;left:50%;transform:translateX(-50%);width:900px;height:600px;
+    background:radial-gradient(ellipse at center,var(--glow),transparent 70%);
+    filter:blur(40px);pointer-events:none;z-index:0}
+
+  /* nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:blur(12px);background:rgba(10,12,16,0.6);
+    border-bottom:1px solid transparent;transition:border-color .4s,background .4s}
+  nav.scrolled{border-bottom-color:var(--line);background:rgba(10,12,16,0.82)}
+  .nav-in{max-width:1080px;margin:0 auto;padding:18px 32px;display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--mono);font-size:14px;letter-spacing:0.02em;color:var(--text);text-decoration:none;font-weight:700}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:34px;align-items:center}
+  .nav-links a{font-size:13px;color:var(--text-dim);text-decoration:none;letter-spacing:0.04em;transition:color .25s;position:relative}
+  .nav-links a:hover{color:var(--text)}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:1px;background:var(--accent);transition:width .3s}
+  .nav-links a:hover::after{width:100%}
+  .nav-links a.nav-resume{color:var(--accent);border:1px solid var(--line-strong);padding:7px 14px;border-radius:2px;transition:all .25s}
+  .nav-links a.nav-resume:hover{border-color:var(--accent);color:var(--accent)}
+  .nav-links a.nav-resume::after{display:none}
+  @media(max-width:680px){.nav-links{display:none}}
+
+  /* hero */
+  header{min-height:100vh;display:flex;align-items:center;padding:120px 0 80px;position:relative}
+  .eyebrow{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:28px;
+    opacity:0;animation:rise .8s .1s forwards}
+  h1{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,7vw,5rem);line-height:1.02;letter-spacing:-0.02em;margin-bottom:30px}
+  h1 .li{display:block;opacity:0;animation:rise .9s forwards}
+  h1 .li:nth-child(1){animation-delay:.2s}
+  h1 .li:nth-child(2){animation-delay:.34s}
+  h1 em{font-style:italic;color:var(--accent)}
+  .lead{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--text-dim);max-width:600px;font-weight:300;line-height:1.65;margin-bottom:42px;
+    opacity:0;animation:rise .9s .5s forwards}
+  .lead b{color:var(--text);font-weight:600}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:rise .9s .65s forwards}
+  .btn{font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:0.02em;padding:14px 28px;border-radius:2px;text-decoration:none;
+    transition:all .3s;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:1px solid transparent}
+  .btn-primary{background:var(--accent);color:var(--bg)}
+  .btn-primary:hover{background:#9ee3d3;transform:translateY(-2px);box-shadow:0 12px 30px -10px var(--accent)}
+  .btn-ghost{border-color:var(--line-strong);color:var(--text)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+
+  .hero-meta{position:absolute;bottom:40px;left:32px;right:32px;display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:12px;color:var(--text-faint);letter-spacing:0.05em;
+    opacity:0;animation:fade 1s 1s forwards;border-top:1px solid var(--line);padding-top:20px;max-width:1016px;margin:0 auto}
+  @media(max-width:680px){.hero-meta{position:static;margin-top:60px}}
+
+  /* sections */
+  section{padding:110px 0;position:relative}
+  .sec-label{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:18px;
+    display:flex;align-items:center;gap:14px}
+  .sec-label::before{content:"";width:32px;height:1px;background:var(--accent);display:inline-block}
+  h2{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,4vw,2.8rem);letter-spacing:-0.02em;line-height:1.1;margin-bottom:48px;max-width:680px}
+
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;align-items:start}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:36px}}
+  .about-body p{color:var(--text-dim);font-size:1.08rem;font-weight:300;margin-bottom:22px;line-height:1.75}
+  .about-body p b{color:var(--text);font-weight:600}
+  .about-side{border-left:1px solid var(--line);padding-left:30px}
+  .stat{margin-bottom:30px}
+  .stat .n{font-family:var(--display);font-size:2.4rem;color:var(--accent);line-height:1;letter-spacing:-0.02em}
+  .stat .l{font-size:0.92rem;color:var(--text-faint);margin-top:6px}
+
+  /* featured work */
+  .work-card{background:linear-gradient(160deg,var(--panel),var(--bg-soft));border:1px solid var(--line);border-radius:6px;
+    padding:48px;position:relative;overflow:hidden;transition:border-color .4s}
+  .work-card:hover{border-color:var(--line-strong)}
+  .work-card::after{content:"";position:absolute;top:-50%;right:-20%;width:400px;height:400px;
+    background:radial-gradient(circle,var(--glow),transparent 70%);pointer-events:none}
+  .work-tag{font-family:var(--mono);font-size:12px;color:var(--accent-warm);letter-spacing:0.08em;margin-bottom:18px;position:relative;z-index:1}
+  .work-card h3{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:400;margin-bottom:16px;letter-spacing:-0.01em;position:relative;z-index:1}
+  .work-card p{color:var(--text-dim);font-weight:300;max-width:560px;margin-bottom:32px;font-size:1.05rem;position:relative;z-index:1}
+  .metrics{display:flex;gap:48px;flex-wrap:wrap;margin-bottom:34px;position:relative;z-index:1}
+  .metric .mn{font-family:var(--display);font-size:2rem;color:var(--text);letter-spacing:-0.02em}
+  .metric .ml{font-size:0.85rem;color:var(--text-faint);margin-top:2px;font-family:var(--mono);letter-spacing:0.03em}
+  .store-links{display:flex;gap:14px;flex-wrap:wrap;position:relative;z-index:1}
+  .store-links a{font-size:13px;color:var(--text-dim);text-decoration:none;border:1px solid var(--line-strong);padding:9px 18px;border-radius:2px;transition:all .3s;font-weight:500}
+  .store-links a:hover{border-color:var(--accent);color:var(--accent)}
+
+  .sku-note{margin-top:24px;font-size:0.95rem;color:var(--text-faint);font-weight:300;font-style:italic}
+
+  /* skills */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .skill-cell{background:var(--bg);padding:30px 28px;transition:background .3s}
+  .skill-cell:hover{background:var(--panel)}
+  .skill-cell h4{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px}
+  .skill-cell .items{display:flex;flex-wrap:wrap;gap:8px}
+  .skill-cell .items span{font-size:13.5px;color:var(--text-dim);background:rgba(255,255,255,0.03);border:1px solid var(--line);padding:5px 12px;border-radius:2px}
+
+  /* timeline */
+  .timeline{position:relative;margin-top:10px}
+  .tl-item{display:grid;grid-template-columns:180px 1fr;gap:40px;padding:34px 0;border-top:1px solid var(--line);position:relative}
+  .tl-item:last-child{border-bottom:1px solid var(--line)}
+  @media(max-width:680px){.tl-item{grid-template-columns:1fr;gap:10px}}
+  .tl-when{font-family:var(--mono);font-size:13px;color:var(--text-faint);letter-spacing:0.03em;padding-top:4px}
+  .tl-role{font-family:var(--display);font-size:1.35rem;font-weight:500;margin-bottom:6px}
+  .tl-co{font-size:0.9rem;color:var(--accent);margin-bottom:14px;font-family:var(--mono);letter-spacing:0.02em}
+  .tl-desc{color:var(--text-dim);font-weight:300;font-size:1rem;line-height:1.7;max-width:620px}
+
+  /* creds */
+  .creds{display:flex;gap:14px;flex-wrap:wrap}
+  .cred{flex:1;min-width:200px;border:1px solid var(--line);border-radius:6px;padding:26px;background:var(--bg-soft);transition:border-color .3s,transform .3s}
+  .cred:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+  .cred .ct{font-family:var(--mono);font-size:12px;color:var(--text-faint);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:10px}
+  .cred .cv{font-family:var(--display);font-size:1.5rem;color:var(--text)}
+  .cred .cv em{font-style:normal;color:var(--accent)}
+
+  /* contact */
+  .contact{text-align:center;padding:130px 0 110px}
+  .contact h2{margin:0 auto 24px;text-align:center}
+  .contact p{color:var(--text-dim);font-weight:300;max-width:480px;margin:0 auto 40px;font-size:1.1rem}
+  .contact-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:38px}
+  .contact-links{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+  .contact-links a{font-family:var(--mono);font-size:14px;color:var(--text-dim);text-decoration:none;letter-spacing:0.03em;transition:color .3s;position:relative}
+  .contact-links a:hover{color:var(--accent)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;font-family:var(--mono);font-size:12px;color:var(--text-faint);letter-spacing:0.04em}
+
+  /* reveal on scroll */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+  .reveal.in{opacity:1;transform:none}
+
+  @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+<div class="ambient"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#top" class="logo">amir<span>.</span>iqbal</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <a href="pdfs/Amir_Iqbal_Resume.pdf" class="nav-resume" target="_blank" rel="noopener" download>Resume ↓</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+<header>
+  <div>
+    <div class="eyebrow">Software Engineer · Tech Lead</div>
+    <h1>
+      <span class="li">I build &amp; scale products</span>
+      <span class="li">used by <em>millions</em>.</span>
+    </h1>
+    <p class="lead">Tech Lead at PlaySimple Games, running engineering for a live mobile game at <b>1M+ daily active users</b>. I move between gameplay systems, distributed backends, and the performance work that only shows up under real load.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">View work →</a>
+      <a href="pdfs/Amir_Iqbal_Resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener" download>Download Resume ↓</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-meta">
+    <span>Bangalore, India</span>
+    <span>Unity · Golang · C# · Distributed Systems</span>
+    <span>4+ yrs · intern → lead</span>
+  </div>
+</header>
+</div>
+
+<div class="wrap">
+<section id="about">
+  <div class="sec-label">About</div>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>I joined PlaySimple as an intern and grew into a <b>Tech Lead</b> over four years — shipping games and systems end-to-end across Unity, Golang, ScyllaDB and Redis.</p>
+      <p>Today I run engineering for a live Match-Three game, leading a small team that owns the whole stack: architecture, backend, live ops, and the features that move the product forward.</p>
+      <p>I care about clean architecture, systems that hold up under load, and teams that ship with confidence. Whether it's a game that needs to scale or a backend that needs to stay up, I like problems where the stakes are real and <b>the metrics are honest</b>.</p>
+    </div>
+    <div class="about-side reveal">
+      <div class="stat"><div class="n">1M+</div><div class="l">Daily active users on current title</div></div>
+      <div class="stat"><div class="n">20%</div><div class="l">Team efficiency gain via AI workflow</div></div>
+      <div class="stat"><div class="n">3x</div><div class="l">User-acquisition growth from localization</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="sec-label">Featured Work</div>
+  <h2>Shipping and scaling live games.</h2>
+  <div class="work-card reveal">
+    <div class="work-tag">CURRENT · TECH LEAD</div>
+    <h3>Tile Match</h3>
+    <p>A live Match-Three mobile game I helped build from its MVP to 1M+ daily active users. I lead engineering across architecture, live ops, and a real-time multiplayer leaderboard handling 1M+ concurrent players.</p>
+    <div class="metrics">
+      <div class="metric"><div class="mn">1M+</div><div class="ml">DAILY ACTIVE USERS</div></div>
+      <div class="metric"><div class="mn">1M+</div><div class="ml">CONCURRENT PLAYERS</div></div>
+      <div class="metric"><div class="mn">99%+</div><div class="ml">CRASH-FREE SESSIONS</div></div>
+    </div>
+    <div class="store-links">
+      <a href="https://play.google.com/store/apps/details?id=in.playsimple.triple.tile.matchgame.pair.three.puzzle.object.royale" target="_blank" rel="noopener">Google Play ↗</a>
+      <a href="https://apps.apple.com/in/app/tile-match-triple-puzzle-game/id6448493522" target="_blank" rel="noopener">App Store ↗</a>
+    </div>
+    <div class="sku-note">Also led the end-to-end development and global launch of Tile Empire — a second Match-Three SKU shipped from MVP to launch.</div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sec-label">Capabilities</div>
+  <h2>A full-stack engineer, comfortable across the whole system.</h2>
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <h4>Systems &amp; Backend</h4>
+      <div class="items"><span>Distributed Systems</span><span>Microservices</span><span>Event-Driven Architecture</span><span>gRPC</span><span>REST APIs</span><span>Systems Design</span></div>
+    </div>
+    <div class="skill-cell">
+      <h4>Languages</h4>
+      <div class="items"><span>C#</span><span>Golang</span><span>Java</span><span>Python</span><span>C++</span></div>
+    </div>
+    <div class="skill-cell">
+      <h4>Game Development</h4>
+      <div class="items"><span>Unity</span><span>Gameplay Systems</span><span>Live Ops</span><span>Memory Management</span><span>Multithreading</span></div>
+    </div>
+    <div class="skill-cell">
+      <h4>Data &amp; Infra</h4>
+      <div class="items"><span>ScyllaDB</span><span>Redis</span><span>SQL</span><span>DigitalOcean</span><span>Docker</span><span>Jenkins · CI/CD</span></div>
+    </div>
+    <div class="skill-cell">
+      <h4>AI Tooling</h4>
+      <div class="items"><span>Cursor</span><span>MCP</span><span>Prompt Engineering</span><span>LLM Integration</span></div>
+    </div>
+    <div class="skill-cell">
+      <h4>Leadership</h4>
+      <div class="items"><span>Team Leadership</span><span>Architecture Reviews</span><span>Mentoring</span><span>Roadmap Planning</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="sec-label">Experience</div>
+  <h2>From intern to Tech Lead in four years.</h2>
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-when">Aug 2025 — Present</div>
+      <div>
+        <div class="tl-role">Senior Software Engineer · Tech Lead</div>
+        <div class="tl-co">PlaySimple Games</div>
+        <div class="tl-desc">Lead engineering for Tile Match at 1M+ DAU. Designed a real-time leaderboard for 1M+ concurrent players, built an AI engineering workflow that lifted team efficiency 20%, and own production stability across the stack. Mentor engineers and run 200+ code reviews.</div>
       </div>
-      <div class="header__sm-menu">
-        <div class="header__sm-menu-content">
-          <ul class="header__sm-menu-links">
-            <li class="header__sm-menu-link">
-              <a href="./index.html"> Home </a>
-            </li>
-
-            <li class="header__sm-menu-link">
-              <a href="./index.html#workExperience"> Work Experience </a>
-            </li>
-
-            <li class="header__sm-menu-link">
-              <a href="./index.html#projects"> Projects </a>
-            </li>
-
-            <li class="header__sm-menu-link">
-              <a href="./index.html#accomplishments"> Accomplishments </a>
-            </li>
-            <li class="header__sm-menu-link">
-              <a href="./index.html#skills"> Skills </a>
-            </li>
-            <li class="header__sm-menu-link">
-              <a href="./index.html#contact"> Contacts </a>
-            </li>
-          </ul>
-        </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">Aug 2023 — Jul 2025</div>
+      <div>
+        <div class="tl-role">Software Engineer</div>
+        <div class="tl-co">PlaySimple Games</div>
+        <div class="tl-desc">Led end-to-end development and global launch of Tile Empire, a Match-Three SKU. Built CI/CD pipelines, integrated an enterprise-grade auth system with GDPR/CCPA compliance, and shipped core features — quests, progression meta, events, and IAP.</div>
       </div>
-    </header>
-    <section class="home-hero">
-      <div class="home-hero__content">
-        <h1 class="heading-primary">Hello, I am Amir.</h1>
-        <div class="home-hero__info">
-          <p class="text-primary">
-            Software Engineer :)
-                     </p>
-
-        </div>
-        <div class="home-hero__cta">
-          <a href="pdfs/resume.pdf" download="Amir Iqbal's Resume" target="_blank" class="btn btn--bg">Resume</a>
-        </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">Aug 2022 — Jul 2023</div>
+      <div>
+        <div class="tl-role">Associate Software Engineer</div>
+        <div class="tl-co">PlaySimple Games</div>
+        <div class="tl-desc">Designed core Match-Three gameplay on a graph-based model and shipped the company's fastest-ever MVP in 2 months. Built a modular localization package across 15+ languages driving 3x UA growth, and cut p99 launch time by 2 seconds.</div>
       </div>
-
-      <div class="home-hero__socials">
-        <div class="home-hero__social">
-          <a href="https://www.linkedin.com/in/amir-iqbal123/"  target="_blank" class="home-hero__social-icon-link">
-            <img
-              src="./assets/png/linkedin-ico.png"
-              alt="icon"
-              class="home-hero__social-icon"
-            />
-          </a>
-        </div>
-        <div class="home-hero__social">
-          <a href="https://github.com/Beelzebubxcrows" class="home-hero__social-icon-link" target="_blank">
-            <img
-              src="./assets/png/github-ico.png"
-              alt="icon"
-              class="home-hero__social-icon"
-            />
-          </a>
-        </div>
-        <div class="home-hero__social">
-          <a href="mailto:amireripmav786@gmail.com" class="home-hero__social-icon-link">
-            <img
-              src="./assets/png/mail.png"
-              alt="icon"
-              class="home-hero__social-icon"
-            />
-          </a>
-        </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-when">Aug 2021 — Jul 2022</div>
+      <div>
+        <div class="tl-role">Software Engineer Intern</div>
+        <div class="tl-co">PlaySimple Games</div>
+        <div class="tl-desc">Built Android notification infrastructure from scratch, improving cohort re-engagement and retention. Shipped gameplay features, backend APIs, and tools end-to-end in an agile environment.</div>
       </div>
-      <div class="home-hero__mouse-scroll-cont">
-        <div class="mouse"></div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-<section id="workExperience" class="projects sec-pad">
-      <div class="main-container">
-        <h2 class="heading heading-sec heading-sec__mb-bg">
-          <span class="heading-sec__main">Work Experience</span>
-        </h2>
+<section id="creds-sec">
+  <div class="sec-label">Beyond Work</div>
+  <h2>Competitive programmer, always building.</h2>
+  <div class="creds reveal">
+    <div class="cred"><div class="ct">LeetCode</div><div class="cv">Top <em>8%</em> Worldwide</div></div>
+    <div class="cred"><div class="ct">Codeforces</div><div class="cv"><em>Expert</em> · Top 20%</div></div>
+    <div class="cred"><div class="ct">Google Kickstart</div><div class="cv">Top <em>10%</em> Worldwide</div></div>
+    <div class="cred"><div class="ct">Education</div><div class="cv">B.Tech IT · <em>8.33</em></div></div>
+  </div>
+</section>
+</div>
 
+<div class="wrap">
+<section id="contact" class="contact">
+  <div class="sec-label" style="justify-content:center">Contact</div>
+  <h2>If you're building something worth building, let's talk.</h2>
+  <p>Open to engineering roles and projects where the problems are hard and the scale is real.</p>
+  <div class="contact-cta">
+    <a href="mailto:iqbalamir2508@gmail.com" class="btn btn-primary">Email me →</a>
+    <a href="pdfs/Amir_Iqbal_Resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener" download>Download Resume ↓</a>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:iqbalamir2508@gmail.com">iqbalamir2508@gmail.com</a>
+    <a href="https://linkedin.com/in/iqbalamir2000" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a href="https://github.com/Beelzebubxcrows" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</section>
+</div>
 
-        <div class="projects__content">
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><img
-                src="./assets/png/Playsimple.png"
-                alt=""
-                class="projects__row-img"
-                loading="lazy"
-              /></a>
-            </div>
-            <div class="projects__row-content">
-              <h3 class="projects__row-content-title">Software Engineer @ <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><u>PlaySimple Games</u></a></h3>
-              <h2 class="projects__row-content-desc">August, 2023 - Present</h2>
-              
-              <p class="projects__row-content-desc">
+<footer>
+  <div class="wrap">© 2026 Amir Iqbal · Designed &amp; built in Bangalore</div>
+</footer>
 
-                • Taking ownership of design, architecture, and end-to-end implementation of features/infra to scale the newly launched product, with 50k+ Active DAU, 1 million+ downloads, generating over 2 million dollars a year.
-              <br>  • Worked on designing extensive Software Design Docs to build scalable, robust systems. Led Design Review meetings with peers and stakeholders.
-              <br>  • Conducted thorough Code Reviews for 100+ pull-requests, ensuring code-quality, security, and adherence to best-practices.
-              <br>  • Owned server and client architecture, with end-to-end development of Multi-User Events Infra. The infra helps run events where users collaborate/compete amongst each other in real-time, sky-rocketing App Engagement, built using C#, Redis, and Golang.
-              <br>  • Proactively managed server latency and troubleshoot issues by monitoring on Datadog to address potential issues before they impact operations.
-              <br>  • POC for Engineering Business Function catering valuable Tech insights for the product.
-
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="projects__content">
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><img
-                src="./assets/png/Playsimple.png"
-                alt=""
-                class="projects__row-img"
-                loading="lazy"
-              /></a>
-            </div>
-            <div class="projects__row-content">
-              <h3 class="projects__row-content-title">Associate Software Engineer @ <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><u>PlaySimple Games</u></a></h3>
-              <h2 class="projects__row-content-desc">August, 2022 - July, 2023</h2>
-              
-              <p class="projects__row-content-desc">
-
-                • Engineered the core infrastructure of the app and Launched MVP within 2 months, achieving the company’s fastest MVP release record.
-       <br>         • Owned end-to-end design, and development of Localisation Infra, which gives users option to change the language of the App. The app is now available in Spanish, Portuguese, English, Japenese, Korean and French enhancing Internationalism, boosting DAU by 3 folds.
-       <br>       • Automated complete Android Build Process to support flawless deployment of the project using Jenkins, Python, Fastlane, saving build time by 80%.
-       <br>       • Automated complete Downloadable Content Shipping Process using Jenkins, reducing time from half an hour to less than a minute.
-       <br>        • Maintained the App stability metrics in production by continuous monitoring on Firebase Crashlytics, fixing crashes/ANRs to keep the Crash Free Rate above 99%.
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-
-<div class="projects__content">
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><img
-                src="./assets/png/Playsimple.png"
-                alt=""
-                class="projects__row-img"
-                loading="lazy"
-              /></a>
-            </div>
-            <div class="projects__row-content">
-              <h3 class="projects__row-content-title">Software Development Engineer Intern @ <a target="_blank"href="https://www.linkedin.com/company/playsimple-games/"><u>PlaySimple Games</u></a></h3>
-              <h2 class="projects__row-content-desc">August, 2021 - July, 2022</h2>
-              
-              <p class="projects__row-content-desc">
-
-                • Worked on developing features, prototypes, backend APIs and tools. Owned multiple features from spec to release, involving tech architecture design, cost allocation and rapid deployment.
-               <br> • Reduced the App Load Time by 25%, by optimising file I/O operations at App start using Java Multi-Threading on Android.
-               <br> • Built the Android Notification infra of the App using Java, which increased App Retention by 35% in later cohorts.
-
-              </p>
-            </div>
-          </div>
-        </div>
-
-
-
-
-
-      </div>
-    </section>
-
-
-
-
-
-    
-
-    <section id="accomplishments" class="projects sec-pad">
-      <div class="main-container">
-        <h2 class="heading heading-sec heading-sec__mb-bg">
-          <span class="heading-sec__main">Accomplishments</span>
-          
-        </h2>
-
-        <div class="projects__content">
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/googleKickstart.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-               Ranked <b>1829</b> amongst <b>15000+ candidates world-wide</b> in <b>Google-Kickstart Round B(2021)</b>
-              <br><b>[Language : Java]</b>
-              </p>
-
-              <a
-                href="https://drive.google.com/file/d/19zdMCCroiY1hl4uBB5-sIHXJDW1A3QM9/view?usp=sharing"
-                class="btn btn--med btn--theme dynamicBgClr"
-                target="_blank"
-                >Certificate</a
-              >
-            </div>
-          </div>
-         
-
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/leetcode.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-              Solved <b>450+</b> DSA problems on Leetcode.
-              <br>
-              <b>Rated 1801</b> on Leetcode amongst <b>Top 8% Leetcoders WorldWide.</b><br>
-               <b>[Language : Java]</b>
-              </p>
-              <a
-                href="https://leetcode.com/amiriqbal/"
-                class="btn btn--med btn--theme dynamicBgClr"
-                target="_blank"
-                >Profile</a
-              >
-            </div>
-          </div>
-         
-
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/cf.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-                Have solved <b>300+</b> DSA problems on Codeforces.
-                <br>
-                Max Rating :<b> <font color="green">Pupil</font>(1296)</b>
-                 <b>[Language : Java]</b>
-              </p>
-              <a
-                href="https://codeforces.com/profile/amireripmav786"
-                class="btn btn--med btn--theme dynamicBgClr"
-                target="_blank"
-                >Profile Link</a
-              >
-            </div>
-          </div>
-         
-
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/chef.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-               Have solved 100+ problems<br>
-               Max Rating :<b> <font>3 Star</font>(1646)</b> <b>[Language : Java]</b>
-              </p>
-              <a
-                href="https://www.codechef.com/users/amir8682khan"
-                class="btn btn--med btn--theme dynamicBgClr"
-                target="_blank"
-                >Profile Link</a
-              >
-            </div>
-          </div>
-         
-
-
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/hr.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-                Have Solved 100+ problems on Hackerrank.
-             <br>Problem Solving Rating : <b>6 Star.</b> <b>[Language : Java]</b>
-              </p>
-              <a
-                href="https://www.hackerrank.com/amireripmav786"
-                class="btn btn--med btn--theme dynamicBgClr"
-                target="_blank"
-                >Profile Link</a
-              >
-            </div>
-          </div>
-         
-
-         
-
-            <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/jpeg/ted.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-            <div class="projects__row-content">
-            
-              <p class="projects__row-content-desc">
-              Arranged <b><font color="red"> TED</font></b> talks in college for two consecutive years as a <b>Public Relations Head</b> having up to <b>500
-attendants.</b>
-              </p>
-            
-            </div>
-          </div>
-         
-        </div>
-      </div>
-    </section>
-
-
-    <section id="projects" class="projects sec-pad">
-      <div class="main-container">
-        <h2 class="heading heading-sec heading-sec__mb-bg">
-          <span class="heading-sec__main">Projects</span>
-          
-        </h2>
-
-
-
-
-
-        <div class="projects__content">
-          <div class="projects__row">
-            <div class="projects__row-img-cont">
-              <img
-                src="./assets/png/seeAlgo.png"
-                
-                class="projects__row-img"
-                loading="lazy"
-              />
-            </div>
-           
-            
-            
-            <div class="projects__row-content">
-             <h3 class="projects__row-content-title">See Algo - Algorithm Visualizer </h3>
-             <div class="about__content-skills">
-            <h3 class="about__content-title"></h3>
-            <div class="skills">
-              <div class="skills__skill"> <u><a href=" https://www.linkedin.com/posts/amir-iqbal123_javascript-algorithmvisualizer-frontend-activity-6809796923441070080-VbBh" target="_blank">Video Link</a></u> </div>
-              <div class="skills__skill"><u><a href="https://beelzebubxcrows.github.io/SeeAlgo.github.io/" target="_blank">Hosted Site</a> </u></div>
-              <div class="skills__skill"><u><a href="https://github.com/Beelzebubxcrows/SeeAlgo" target="_blank">Code</a></u></div>
-            
-            </div>
-          </div>
-
-              <p class="projects__row-content-desc">
-               
-               • Build an algorithm visualizer using vanilla javascript. Do go through the video !<br>
-• Implemented the following algorithms: <b>Binary Search, Linear Search, Bubble Sort, Selection Sort, A*
-Path Finding Algorithm.</b><br>
-• Added a popup describing about <b>complexities</b> of various implemented algorithms and data structure.<br>
-              </p>
-            <div class="about__content-skills">
-            <h3 class="about__content-title"></h3>
-            <div class="skills">
-              <div class="skills__skill"> HTML </div>
-              <div class="skills__skill">CSS</div>
-              <div class="skills__skill">JavaScript</div>
-              <div class="skills__skill">Bootstrap</div>
-              <div class="skills__skill">Git</div>
-            </div>
-          </div>
-            </div>
-          </div>
-         
-
-          
-         
-
-
-
-
-
-
-      </div>
-    </section>
-
-
-    <section id="skills" class="about sec-pad">
-      <div class="main-container">
-        <h2 class="heading heading-sec heading-sec__mb-med">
-          <span class="heading-sec__main">Skills</span>
-          
-        </h2>
-        <div class="about__content">
-        
-          <div class="about__content-skills">
-            <h3 class="about__content-title">CS Fundamentals</h3>
-            <div class="skills">
-              <div class="skills__skill">Data Structure And Algorithms</div>
-              <div class="skills__skill">Object-Oriented Programming</div>
-              <div class="skills__skill">DataBase Management System</div>
-              <div class="skills__skill">Low Level Design</div>
-            </div>
-          </div>
-
-          <div class="about__content-skills">
-            <h3 class="about__content-title">Languages</h3>
-            <div class="skills">
-              <div class="skills__skill">Java</div>
-              <div class="skills__skill">C#</div>
-              <div class="skills__skill">Python</div>
-              <div class="skills__skill">Golang</div>
-              <div class="skills__skill">JavaScript</div>
-              <div class="skills__skill">HTML</div>
-              <div class="skills__skill">CSS</div>
-            </div>
-          </div>
-
-    
-
-
-           <div class="about__content-skills">
-            <h3 class="about__content-title">Others</h3>
-            <div class="skills">
-
-              <div class="skills__skill"> Unity </div>
-              <div class="skills__skill"> Android </div>
-              <div class="skills__skill"> Redis </div>
-              <div class="skills__skill"> Git </div>
-<div class="skills__skill">Firebase</div>
-<div class="skills__skill">Jenkins</div>
-
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </section>
-
-
-    <script src="./index.js"></script>
-  </body>
+<script>
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40)});
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
 </html>
